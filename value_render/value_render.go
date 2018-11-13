@@ -55,7 +55,11 @@ func GetValueRender2(template string) ValueRender {
 		return NewMultiLevelValueRender(fields)
 	}
 	if matchGoTemp.Match([]byte(template)) {
-		return NewTemplateValueRender(template)
+		newIndex=NewTemplateValueRender(template)
+		if matchESIndex.Match([]byte(newIndex)) {
+			return NewIndexRender(newIndex)
+		}
+		return newIndex
 	}
 	if matchESIndex.Match([]byte(template)) {
 		return NewIndexRender(template)
